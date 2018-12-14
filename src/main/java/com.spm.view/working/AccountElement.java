@@ -29,7 +29,7 @@ public class AccountElement extends PageElement {
     private final int getTextFieldPosX = 200;
 
     private JTextField senderTextField;
-    private JTextField pwdTextField;
+    private JPasswordField pwdField;
     private JTextField pop3ServerTextField;
     private JTextField smtpServerTextField;
     private JComboBox refreshRateComboBox;
@@ -94,9 +94,9 @@ public class AccountElement extends PageElement {
         JLabel pwdLabel = new JLabel("密码");
         pwdLabel.setBounds(0, contorlElemGap * 6, labelWidth, elemHeight);
         accountmentManagementPanel.add(pwdLabel);
-        JTextField pwdTextField = new JTextField();
-        pwdTextField.setBounds(getTextFieldPosX, contorlElemGap * 6, textFieldWidth, elemHeight);
-        accountmentManagementPanel.add(pwdTextField);
+        JPasswordField pwdField = new JPasswordField();
+        pwdField.setBounds(getTextFieldPosX, contorlElemGap * 6, textFieldWidth, elemHeight);
+        accountmentManagementPanel.add(pwdField);
 
         JLabel pop3ServerLabel = new JLabel("传入(POP3)电子邮件服务器");
         pop3ServerLabel.setBounds(0, contorlElemGap * 7, labelWidth, elemHeight);
@@ -143,7 +143,7 @@ public class AccountElement extends PageElement {
         accountmentManagementPanel.add(delAfterDownFlagCheckBox);
 
         this.senderTextField = senderTextField;
-        this.pwdTextField = pwdTextField;
+        this.pwdField = pwdField;
         this.pop3ServerTextField = pop3ServerTextField;
         this.smtpServerTextField = smtpServerTextField;
         this.refreshRateComboBox = refreshRateComboBox;
@@ -166,7 +166,7 @@ public class AccountElement extends PageElement {
         //copy
         Account account = ApplicationContext.getContext().getAccount();
         senderTextField.setText(account.getSender());
-        pwdTextField.setText(account.getPwd());
+        pwdField.setText(account.getPwd());
         pop3ServerTextField.setText(account.getInServer());
         smtpServerTextField.setText(account.getOutServer());
         RefRate rate = account.getRefRate();
@@ -294,7 +294,7 @@ public class AccountElement extends PageElement {
             int saveAccFlag = JOptionPane.showConfirmDialog(AccountElement.this, "确认保存?", "保存", JOptionPane.YES_NO_OPTION);
             if (saveAccFlag == 0) {
                 setSenderName(senderTextField.getText());
-                setPwd(pwdTextField.getText());
+                setPwd(new String(pwdField.getPassword()));
                 setInServer(pop3ServerTextField.getText());
                 setOutServer(smtpServerTextField.getText());
                 String refreshRate = refreshRateComboBox.getSelectedItem().toString();
